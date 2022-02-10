@@ -1,17 +1,9 @@
-# olx_clone
+# XLO
 
-A new Flutter project.
+The OLX clone made with Flutter!
 
-## Getting Started
+## Technologies
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
-# olx_clone
+- :iphone: Front-end: [Flutter](https://flutter.dev/)
+- :cloud: Back-end services: [Back4App](https://www.back4app.com/)
+- :hourglass_flowing_sand: State Managment: [MobX](https://pub.dev/packages/mobx)
