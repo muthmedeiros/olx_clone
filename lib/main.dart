@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
+import 'package:olx_clone/stores/page_store.dart';
 import 'package:parse_server_sdk_flutter/parse_server_sdk.dart';
 
 import 'screens/base/base_screen.dart';
@@ -7,6 +9,8 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await initializeParse();
+
+  setUpLocators();
 
   runApp(const MyApp());
 }
@@ -25,6 +29,10 @@ Future<void> initializeParse() async {
   );
 }
 
+void setUpLocators() {
+  GetIt.I.registerSingleton(PageStore());
+}
+
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
@@ -32,11 +40,35 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'XLO',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primaryColor: Colors.purple,
+        scaffoldBackgroundColor: Colors.purple,
+        primarySwatch: Colors.purple,
+        appBarTheme: const AppBarTheme(
+          elevation: 0,
+        ),
+        textSelectionTheme: const TextSelectionThemeData(
+          cursorColor: Colors.orange,
+        ),
         visualDensity: VisualDensity.adaptivePlatformDensity,
+        elevatedButtonTheme: ElevatedButtonThemeData(
+          style: ElevatedButton.styleFrom(
+            primary: Colors.orange,
+            onPrimary: Colors.white,
+            onSurface: Colors.orange.withAlpha(120),
+            elevation: 0.0,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20),
+            ),
+          ),
+        ),
+        buttonTheme: ButtonThemeData(
+          buttonColor: Colors.orange,
+          disabledColor: Colors.orange.withAlpha(120),
+        ),
       ),
-      home: BaseScreen(),
+      home: const BaseScreen(),
     );
   }
 }
