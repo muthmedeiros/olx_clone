@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:mobx/mobx.dart';
+import 'package:olx_clone/repositories/user_repository.dart';
 
 import '../helpers/extensions.dart';
+import '../models/user.dart';
 
 part 'signup_store.g.dart';
 
@@ -37,7 +39,7 @@ abstract class _SignUpStoreBase with Store {
   String? get emailError {
     if (email == null || emailValid) {
       return null;
-    } else if (name!.isEmpty) {
+    } else if (email!.isEmpty) {
       return 'Campo obrigatório!';
     } else {
       return 'E-mail inválido.';
@@ -112,11 +114,25 @@ abstract class _SignUpStoreBase with Store {
   @observable
   bool isLoading = false;
 
+  @observable
+  String? error;
+
   @action
   Future<void> _signUp() async {
     isLoading = true;
 
-    await Future.delayed(const Duration(seconds: 2));
+    final user = User(
+      name: name!,
+      email: email!,
+      phone: phone!,
+      password: password!,
+    );
+
+    try {
+      final resultUser = await UserRepository().signUp(user);
+    } catch (e) {
+      error = e as String;
+    }
 
     isLoading = false;
   }

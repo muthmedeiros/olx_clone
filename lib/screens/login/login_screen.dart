@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:olx_clone/stores/login_store.dart';
 
 import '../../components/buttons/custom_elevated_button.dart';
+import '../../components/error_box.dart';
 import '../signup/signup_screen.dart';
 
 class LoginScreen extends StatelessWidget {
-  const LoginScreen({Key? key}) : super(key: key);
+  LoginScreen({Key? key}) : super(key: key);
+
+  final LoginStore loginStore = LoginStore();
 
   @override
   Widget build(BuildContext context) {
@@ -28,6 +33,11 @@ class LoginScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 mainAxisSize: MainAxisSize.min,
                 children: [
+                  Observer(
+                    builder: (_) {
+                      return ErrorBox(message: loginStore.error);
+                    },
+                  ),
                   Text(
                     'Acessar com E-mail',
                     textAlign: TextAlign.center,
@@ -51,12 +61,19 @@ class LoginScreen extends StatelessWidget {
                       ),
                     ),
                   ),
-                  const TextField(
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(),
-                      isDense: true,
-                    ),
-                    keyboardType: TextInputType.emailAddress,
+                  Observer(
+                    builder: (_) {
+                      return TextField(
+                        enabled: !loginStore.isLoading,
+                        decoration: InputDecoration(
+                          border: const OutlineInputBorder(),
+                          isDense: true,
+                          errorText: loginStore.emailError,
+                        ),
+                        keyboardType: TextInputType.emailAddress,
+                        onChanged: loginStore.setEmail,
+                      );
+                    },
                   ),
                   const SizedBox(height: 16),
                   Padding(
@@ -85,16 +102,28 @@ class LoginScreen extends StatelessWidget {
                       ],
                     ),
                   ),
-                  const TextField(
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(),
-                      isDense: true,
-                    ),
-                    obscureText: true,
+                  Observer(
+                    builder: (_) {
+                      return TextField(
+                        enabled: !loginStore.isLoading,
+                        decoration: InputDecoration(
+                          border: const OutlineInputBorder(),
+                          isDense: true,
+                          errorText: loginStore.passwordError,
+                        ),
+                        obscureText: true,
+                        onChanged: loginStore.setPassword,
+                      );
+                    },
                   ),
-                  CustomElevatedButton(
-                    buttonChild: const Text('CADASTRAR'),
-                    onPressed: () {},
+                  Observer(
+                    builder: (_) {
+                      return CustomElevatedButton(
+                        title: 'ENTRAR',
+                        isLoading: loginStore.isLoading,
+                        onPressed: loginStore.loginPressed,
+                      );
+                    },
                   ),
                   const Divider(),
                   Padding(

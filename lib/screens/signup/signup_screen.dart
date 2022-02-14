@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:olx_clone/components/buttons/custom_elevated_button.dart';
+import 'package:olx_clone/components/error_box.dart';
 import 'package:olx_clone/screens/signup/components/field_title.dart';
 import 'package:olx_clone/stores/signup_store.dart';
 
@@ -33,6 +34,11 @@ class SignUpScreen extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
+                  Observer(
+                    builder: (_) {
+                      return ErrorBox(message: signUpStore.error);
+                    },
+                  ),
                   const FieldTitle(
                     title: 'Apelido',
                     subTitle: 'Como aparecerá em seus anúncios.',
@@ -137,15 +143,8 @@ class SignUpScreen extends StatelessWidget {
                   Observer(
                     builder: (_) {
                       return CustomElevatedButton(
-                        buttonChild: signUpStore.isLoading
-                            ? const Padding(
-                                padding: EdgeInsets.all(10.0),
-                                child: CircularProgressIndicator(
-                                  valueColor:
-                                      AlwaysStoppedAnimation(Colors.white),
-                                ),
-                              )
-                            : const Text('CADASTRAR'),
+                        title: 'CADASTRAR',
+                        isLoading: signUpStore.isLoading,
                         onPressed: signUpStore.signUpPressed,
                       );
                     },
