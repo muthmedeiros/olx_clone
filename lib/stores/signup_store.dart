@@ -1,9 +1,11 @@
 import 'package:flutter/cupertino.dart';
+import 'package:get_it/get_it.dart';
 import 'package:mobx/mobx.dart';
-import 'package:olx_clone/repositories/user_repository.dart';
 
 import '../helpers/extensions.dart';
 import '../models/user.dart';
+import '../repositories/user_repository.dart';
+import 'user_manager_store.dart';
 
 part 'signup_store.g.dart';
 
@@ -130,6 +132,7 @@ abstract class _SignUpStoreBase with Store {
 
     try {
       final resultUser = await UserRepository().signUp(user);
+      GetIt.I<UserManagerStore>().setUser(resultUser);
     } catch (e) {
       error = e as String;
     }

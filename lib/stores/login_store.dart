@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 import 'package:mobx/mobx.dart';
-import 'package:olx_clone/repositories/user_repository.dart';
 
 import '../helpers/extensions.dart';
+import '../repositories/user_repository.dart';
+import 'user_manager_store.dart';
 
 part 'login_store.g.dart';
 
@@ -50,7 +52,7 @@ abstract class _LoginStoreBase with Store {
         email!,
         password!,
       );
-      error = null;
+      GetIt.I<UserManagerStore>().setUser(resultUser);
     } catch (e) {
       error = e as String;
     }
