@@ -1,13 +1,16 @@
 import 'package:brasil_fields/brasil_fields.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:olx_clone/stores/create_ad_store.dart';
 
 import '../../components/custom_drawer/custom_drawer.dart';
 import '../../theme/text_styles.dart';
 import 'components/images_field.dart';
 
 class CreateAdScreen extends StatelessWidget {
-  const CreateAdScreen({Key? key}) : super(key: key);
+  CreateAdScreen({Key? key}) : super(key: key);
+
+  final CreateAdStore createAdStore = CreateAdStore();
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +32,7 @@ class CreateAdScreen extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            const ImagesField(),
+            ImagesField(createAdStore: createAdStore),
             TextFormField(
               decoration: InputDecoration(
                 contentPadding: _contentPadding,
