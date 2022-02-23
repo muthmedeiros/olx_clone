@@ -8,5 +8,5 @@ abstract class _CreateAdStoreBase with Store {
   ObservableList images = ObservableList();
 
   @computed
-  int get itemCountLimit => images.length < 5 ? images.length + 1 : 5;
+  int get imageCountLimit => images.length < 5 ? images.length + 1 : 5;
 }

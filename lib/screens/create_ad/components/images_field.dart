@@ -29,7 +29,7 @@ class ImagesField extends StatelessWidget {
       color: Colors.grey[200],
       child: Observer(builder: (context) {
         return ListView.builder(
-          itemCount: createAdStore.itemCountLimit,
+          itemCount: createAdStore.imageCountLimit,
           scrollDirection: Axis.horizontal,
           itemBuilder: (_, index) {
             if (index == createAdStore.images.length) {
